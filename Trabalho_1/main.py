@@ -1,7 +1,7 @@
 import BuscaProfundidadeLimitada as bp
 import crud
 
-def main(file = "test.txt"):
+def main(file = "default.txt"):
     c = crud.Crud(file)
     r = c.read()
     co = r[0]
@@ -13,5 +13,8 @@ def main(file = "test.txt"):
     #c.BEL(g, g.bateriaInicial, 0)
 
     
-
-main()
+file = input("Digite o nome do arquivo (ou deixe em branco para Default):")
+if file != "":
+	main(file)
+else:
+	main()

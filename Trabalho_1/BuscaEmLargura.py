@@ -1,16 +1,56 @@
 class BELs:
-    def BEL(self, g, bateria, ouro):
-        visitados = [False] * (len(g.grafo))
+    coletado = 0
+    ouroAtual = 0
 
-        fila = []
+    def __init__(self, matriz, n):
+        self.g = Grafo.Grafo(matriz, n)
+        self.visitado = [False]*(self.g.n**2)
+        self.bateriaAtual = self.g.bateriaInicial
+        self.retorno = list()
+        self.caminho = list()
+        self.SeqAcoes = list()
 
-        fila.append(0)
-        visitados[0] = True
+    def GastarBateria(self):
+        self.bateriaAtual -= 1
 
-        while fila:
-            s = fila.pop(0)
+    def PegarOuro(self, pos):
+        self.g.ouros.remove(pos)
+        self.SeqAcoes.append("PO")
+        self.ouroAtual += 1
+        self.coletado += 1
 
-            for i in g.grafo[s]:
-                if (visitados[i] == False):
-                    fila.append(i)
-                    visitados[i] = True
+    # Retorna -1 se for parede e 0 se ja foi visitado
+    def Direita(self, pos):
+        if self.g.PosDireita(pos) == -1:
+            return -1
+        if self.visitado[self.g.PosDireita(pos)]:
+            return 0
+        return self.g.PosDireita(pos)
+    
+    # Retorna -1 se for parede e 0 se ja foi visitado
+    def Esquerda(self, pos):
+        if self.g.PosEsquerda(pos) == -1:
+            return -1
+        if self.visitado[self.g.PosEsquerda(pos)]:
+            return 0
+        return self.g.PosEsquerda(pos)
+    
+    # Retorna -1 se for parede e 0 se ja foi visitado
+    def Cima (self, pos):
+        if self.g.PosCima(pos) == -1:
+            return -1
+        if self.visitado[self.g.PosCima(pos)]:
+            return 0
+        return self.g.PosCima(pos)
+    
+    # Retorna -1 se for parede e 0 se ja foi visitado
+    def Baixo (self, pos):
+        if self.g.PosBaixo(pos) == -1:
+            return -1
+        if self.visitado[self.g.PosBaixo(pos)]:
+            return 0
+        return self.g.PosBaixo(pos)
+    
+    def RecarregarBateria(self):
+        self.bateriaAtual += 5*(self.g.n**1.5)
+        self.ouroAtual -= 1

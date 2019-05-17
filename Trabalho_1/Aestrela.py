@@ -1,6 +1,6 @@
 import Grafo
 import Queues
-class BELs:
+class AEstrela:
 	coletado = 0
 	ouroAtual = 0
 
@@ -13,6 +13,7 @@ class BELs:
 		self.SeqAcoes = list()
 		self.distancias = {}
 
+
 	def Miner(self):
 		
 		aux = self.g.ouros.copy()
@@ -22,7 +23,7 @@ class BELs:
 			aux = self.g.ouros
 			ini = self.Mineirar(ini)
 
-		print("\n\nBEL\n\n")
+		print("\n\nA*\n\n")
 		print("Ouro coletado:", self.coletado)
 		print("Casas exploradas:", self.explorados)
 		print("Bateria final:", self.bateriaAtual)
@@ -30,7 +31,7 @@ class BELs:
 	def Mineirar(self, ini):
 		ret = []
 		while True:
-			atual,veio_de = self.BuscaEmLargura(ini,self.g.ouros)
+			atual,veio_de = self.Aestrela(ini,self.g.ouros)
 			path = self.ReconstruirAcoes(ini,atual,veio_de)
 			if (len(ret) + len(path))*2 < self.bateriaAtual and atual in self.g.ouros:
 				ret += path
@@ -48,11 +49,26 @@ class BELs:
 				break
 		return atual
 
-	def BuscaEmLargura(self, inicial, metas):
-		fronteira = Queues.Queue()
-		fronteira.put(inicial)
+	def hx(self, ini, metas):
+		iniy = (ini//self.g.n) + 1
+		inix = (ini%iniy) + 1
+		ret = ini
+		for m in metas:
+			ret += m
+
+		for meta in metas:
+			metay = (meta//self.g.n) + 1
+			metax = (meta%metay) + 1
+			ret = min(abs(metax-inix) + abs(metay-iniy), ret)
+		return ret
+
+	def Aestrela(self, inicial, metas):
+		fronteira = Queues.PriorityQueue()
+		fronteira.put(inicial, 0)
 		veio_de = {}
 		veio_de[inicial] = None
+		custo_ate_agora = {}
+		custo_ate_agora[inicial] = 0
 
 		while not fronteira.empty():
 			self.explorados += 1
@@ -62,8 +78,11 @@ class BELs:
 				break
 
 			for prox in self.g.grafo[atual]:
-				if prox not in veio_de:
-					fronteira.put(prox)
+				custo_novo = custo_ate_agora[atual] + 1
+				if prox not in custo_ate_agora or custo_novo < custo_ate_agora[prox]:
+					custo_ate_agora[prox] = custo_novo
+					prio = custo_novo + self.hx(prox, metas)
+					fronteira.put(prox, prio)
 					veio_de[prox] = atual
 		return atual,veio_de
 

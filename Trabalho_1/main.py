@@ -1,3 +1,5 @@
+# Vinicius Schwinden Berkenbrock
+
 import BuscaProfundidadeLimitada as bp
 import Dijkstra as diji
 import BuscaEmLargura as BEL

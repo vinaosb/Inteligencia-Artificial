@@ -1,4 +1,5 @@
 import BuscaProfundidadeLimitada as bp
+import BPLA as bpa
 import crud
 
 def main(file = "default.txt"):
@@ -7,10 +8,10 @@ def main(file = "default.txt"):
     co = r[0]
     col = r[0][0]
     r.remove(co)
-    b = bp.BPLs(r,int(col))
-    b.Miner()
-    #c = BELs()
-    #c.BEL(g, g.bateriaInicial, 0)
+    i = bp.BPLs(r,int(col))
+    i.Miner()
+    j = bpa.BPLAs(r,int(col))
+    j.Miner()
 
     
 file = input("Digite o nome do arquivo (ou deixe em branco para Default):")

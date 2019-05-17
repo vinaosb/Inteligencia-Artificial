@@ -1,6 +1,6 @@
 import Grafo
 
-class BPLs:
+class BPLAs:
     coletado = 0
     ouroAtual = 0
 
@@ -24,12 +24,19 @@ class BPLs:
         print("Seq de Acoes:",self.SeqAcoes)
         print("Numero de acoes realizadas:", len(self.SeqAcoes))
 
-    def fx(self):
-        return self.gx() + self.hx()
+    def fx(self, pos):
+        return self.gx() + self.hx(pos)
     def gx(self):
         return len(self.retorno)
-    def hx(self):
-        return 0
+    def hx(self, pos):
+		ret = self.g.n*self.g.n
+		poy = pos//self.g.n
+		pox = pos%poy
+		for o in self.g.ouros:
+			auy = o//self.g.n
+			aux = o%auy
+			ret = min(ret, ((aux-pox)**2) + ((auy-poy)**2))
+        return ret
 
     # Recebe posicao atual e retorna proxima acao
     def Mineirar(self, pos):
@@ -46,30 +53,59 @@ class BPLs:
 
         if len(self.caminho) <= 0 or self.caminho[len(self.caminho) - 1] != pos:
             self.caminho.append(pos)
-        # Se possui lugar a esquerda, andar a esquerda
-        if self.Esquerda(pos) > 0:
-            self.GastarBateria()
-            self.SeqAcoes.append("E")
-            self.Mineirar(self.Esquerda(pos))
-        # Se possui lugar acima, andar acima
-        elif self.Cima(pos) > 0:
-            self.GastarBateria()
-            self.SeqAcoes.append("C")
-            self.Mineirar(self.Cima(pos))
-        # Se possui lugar a direita, andar a direita
-        elif self.Direita(pos) > 0:
-            self.GastarBateria()
-            self.SeqAcoes.append("D")
-            self.Mineirar(self.Direita(pos))
-        # Se possui lugar a baixo, andar a baixo
-        elif self.Baixo(pos) > 0:
-            self.GastarBateria()
-            self.SeqAcoes.append("B")
-            self.Mineirar(self.Baixo(pos))
-        # Se nao possui destinos, retornar para posicao anterior e continua mineirando
-        else:
-            self.GastarBateria()
-            self.Retornar(pos, True)
+
+		temp = 'T'
+		tempm = self.fx(pos)**2
+		tempt = False
+		# Enquanto houver caminho fazer:
+		while temp != R:
+			# Se o caminho a esquerda possuir fx menor que atual, ir para esquerda
+			if self.Esquerda(pos) > 0 and tempm - self.fx(self.Esquerda(pos)) < 0:
+				tempm = self.fx(self.Esquerda(pos))
+				temp = 'E'
+				tempt = True
+			# Se o caminho a direita possuir fx menor que atual, ir para direita
+			if self.Direita(pos) > 0 and tempm - self.fx(self.Direita(pos)) < 0:
+				tempm = self.fx(self.Direita(pos))
+				temp = 'D'
+				tempt = True
+			# Se o caminho acima possuir fx menor que atual, ir para cima
+			if self.Cima(pos) > 0 and tempm - self.fx(self.Cima(pos)) < 0:
+				tempm = self.fx(self.Cima(pos))
+				temp = 'C'
+				tempt = True
+			# Se o caminho abaixo possuir fx menor que atual, ir para baixo
+			if self.Baixo(pos) > 0 and tempm - self.fx(self.Baixo(pos)) < 0:
+				temp = 'B'
+				tempt = True
+			# Se nao tem nenhum caminho com fx menor que atual ou todos ja foram percorridos, retorna
+			if tempt = False:
+				temp = 'R'
+
+			tempt = False
+			tempm = self.fx(pos)**2
+
+			# Mineira para o caminho escolhido anteriormente
+			if temp == 'E':
+				self.GastarBateria()
+				self.SeqAcoes.append("E")
+				self.Mineirar(self.Esquerda(pos))
+			elif temp == 'D':
+				self.GastarBateria()
+				self.SeqAcoes.append("D")
+				self.Mineirar(self.Direita(pos))
+			elif temp == 'C':
+				self.GastarBateria()
+				self.SeqAcoes.append("C")
+				self.Mineirar(self.Cima(pos))
+			elif temp == 'B':
+				self.GastarBateria()
+				self.SeqAcoes.append("B")
+				self.Mineirar(self.Baixo(pos))
+
+		# Retorna para posicao anterior e continua a mineirar
+		self.GastarBateria()
+		self.Retornar(pos, True)
     
     # @pos = posicao atual
     # @continuarOuInicio = Continuar a mineirar, ou retornar ao inicio

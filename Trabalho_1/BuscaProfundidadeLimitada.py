@@ -37,6 +37,7 @@ class BPLs:
         if (self.bateriaAtual <= len(self.retorno) + 1):
             return self.Retornar(pos, False)
 
+		# Adiciona o vertice ao caminho
         if len(self.caminho) <= 0 or self.caminho[len(self.caminho) - 1] != pos:
             self.caminho.append(pos)
         # Se possui lugar a esquerda, andar a esquerda

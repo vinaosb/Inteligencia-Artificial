@@ -21,10 +21,9 @@ class BPLs:
 		
 		print("\n\nBusca em Profundidade Limitada pela Bateria\n\n")
 		print("Ouro coletado =", self.coletado)
-		print("Caminho:", self.caminho)
 		print("Numero de posicoes visitadas:", len(self.caminho))
 		print("Seq de Acoes:",self.SeqAcoes)
-		print("Numero de acoes realizadas:", len(self.SeqAcoes))
+		print("Bateria Final:",self.bateriaAtual)
 
 	# Recebe posicao atual e retorna proxima acao
 	def Mineirar(self, pos):

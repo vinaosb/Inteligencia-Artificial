@@ -1,0 +1,46 @@
+Vinícius Schwinden Berkenbrock
+
+Fiz 4 Buscas diferentes,
+Busca em Largura normal
+Busca em Largura usando algoritmo de Dijikstra
+Busca em Largura A*
+Busca em Profundidade Limitada
+
+No Exemplo usado no PDF temos os seguintes resultados:
+No caso da busca em Profundidade, foi considerado que o agente estaria procurando às cegas ele mesmo
+Para as buscas em largura foi considerado que o agente estaria usando uma rota que foi procurada pelo algoritmo de busca previamente
+(Assim não consumindo sua bateria para percorrer o percurso)
+(Caso fosse necessário que o agente realizasse sua própria busca em largura, ela se tornaria inviavel pela quantidade de retornos que precisaria ser realizado)
+
+No caso do algoritmo de Dijkstra e do de Busca em largura, não houve mudança significativa nos resultados,
+tendo em vista que tinhamos praticamente apenas caminhos curtos
+Se houverem caminhos longos, deve haver uma diferença mais significativa
+No caso do A* ele é o com melhor score
+
+No caso do BPL, como ele foi o único que pode realizar a busca sem saber nada do mapa previamente, considero que isso conte para algo
+
+Busca em Profundidade Limitada pela Bateria
+Ouro coletado = 2
+Numero de posicoes visitadas:107
+Seq de Acoes:['D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'PO', 'D', 'B', 'C', 'E', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'D', 'B', 'E', 'D', 'D', 'D', 'D', 'C', 'C', 'C', 'C', 'D', 'D', 'PO', 'E', 'B', 'B', 'B', 'B', 'E', 'E', 'E', 'E', 'C', 'E', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'D', 'B', 'D', 'D', 'D', 'D', 'C', 'C', 'C', 'C', 'D', 'B', 'B', 'B', 'B', 'E', 'E', 'E', 'E', 'C', 'E', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E']
+Bateria Final:1.901586977664735
+
+
+
+Dijkstra
+Ouro coletado:3
+Casas exploradas:177
+Bateria final:89.76450198781713
+Sequencia de Acoes:['D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'PO', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'B', 'B', 'D', 'D', 'D', 'D', 'D', 'D', 'B', 'B', 'B', 'PO', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'B', 'B', 'D', 'D', 'D', 'D', 'C', 'C', 'C', 'C', 'D', 'D', 'PO', 'E', 'E', 'B', 'B', 'B', 'B', 'E', 'E', 'E', 'E', 'C', 'C', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'D', 'D', 'C', 'C', 'E', 'E', 'E']
+
+Busca em Largura
+Ouro coletado:3
+Casas exploradas:173
+Bateria final:89.76450198781713
+Sequencia de Acoes: ['D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'PO', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'B', 'B', 'D', 'D', 'D', 'D', 'D', 'D', 'B', 'B', 'B', 'PO', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'B', 'B', 'D', 'D', 'D', 'D', 'C', 'C', 'C', 'C', 'D', 'D', 'PO', 'E', 'E', 'B', 'B', 'B', 'B', 'E', 'E', 'E', 'E', 'C', 'C', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'D', 'D', 'C', 'C', 'E', 'E', 'E']
+
+A*
+Ouro coletado:3
+Casas exploradas:129
+Bateria final:97.76450198781713
+Sequencia de Acoes:['D', 'D', 'D', 'B', 'B', 'E', 'E', 'E', 'B', 'PO', 'C', 'D', 'D', 'D', 'C', 'C', 'E', 'E', 'E', 'D', 'D', 'D', 'B', 'B', 'E', 'E', 'B', 'B', 'D', 'D', 'D', 'D', 'D', 'D', 'B', 'B', 'B', 'PO', 'C', 'C', 'C', 'C', 'E', 'E', 'C', 'C', 'C', 'D', 'D', 'PO', 'E', 'E', 'B', 'B', 'B', 'D', 'D', 'B', 'B', 'B', 'B', 'C', 'C', 'C', 'E', 'E', 'E', 'E', 'E', 'E', 'C', 'C', 'D', 'D', 'C', 'C', 'E', 'E', 'E']

@@ -1,5 +1,5 @@
 import BuscaProfundidadeLimitada as bp
-import BPLA as bpa
+import Dijkstra as diji
 import BuscaEmLargura as BEL
 import Aestrela as aes
 import crud
@@ -12,8 +12,8 @@ def main(file = "default.txt"):
 	r.remove(co)
 	i = bp.BPLs(r,int(col))
 	i.Miner()
-	#j = bpa.BPLAs(r,int(col))
-	#j.Miner()
+	j = diji.Dijkstra(r,int(col))
+	j.Miner()
 	k = BEL.BELs(r,int(col))
 	k.Miner()
 	l = aes.AEstrela(r,int(col))

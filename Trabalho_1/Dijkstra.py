@@ -1,6 +1,6 @@
 import Grafo
 import Queues
-class AEstrela:
+class Dijkstra:
 	coletado = 0
 	ouroAtual = 0
 
@@ -23,7 +23,7 @@ class AEstrela:
 			aux = self.g.ouros
 			ini = self.Mineirar(0)
 
-		print("\n\nA*\n\n")
+		print("\n\nDijkstra\n\n")
 		print("Ouro coletado:", self.coletado)
 		print("Casas exploradas:", self.explorados)
 		print("Bateria final:", self.bateriaAtual)
@@ -38,7 +38,6 @@ class AEstrela:
 				ret += path
 				ret.append("PO")
 				self.PegarOuro(atual)
-				ini = atual
 			else:
 				aux = len(ret)
 				for i in ret:
@@ -50,19 +49,6 @@ class AEstrela:
 				ret.clear()
 				break
 		return atual
-
-	def hx(self, ini, metas):
-		iniy = (ini//self.g.n) + 1
-		inix = (ini%iniy) + 1
-		ret = ini
-		for m in metas:
-			ret += m
-
-		for meta in metas:
-			metay = (meta//self.g.n) + 1
-			metax = (meta%metay) + 1
-			ret = min(abs(metax-inix) + abs(metay-iniy), ret)
-		return ret
 
 	def Aestrela(self, inicial, metas):
 		fronteira = Queues.PriorityQueue()
@@ -83,7 +69,7 @@ class AEstrela:
 				custo_novo = custo_ate_agora[atual] + 1
 				if prox not in custo_ate_agora or custo_novo < custo_ate_agora[prox]:
 					custo_ate_agora[prox] = custo_novo
-					prio = custo_novo + self.hx(prox, metas)
+					prio = custo_novo
 					fronteira.put(prox, prio)
 					veio_de[prox] = atual
 		return atual,veio_de

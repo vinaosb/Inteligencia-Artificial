@@ -18,7 +18,7 @@ class BPLs:
 			self.RecarregarBateria()
 			self.Mineirar(0)
 		
-		print("\n\nBusca em Profundidade Limitada\n\n")
+		print("\n\nBusca em Profundidade Limitada pela Bateria\n\n")
 		print("Ouro coletado =", self.coletado)
 		print("Caminho:", self.caminho)
 		print("Numero de posicoes visitadas:", len(self.caminho))

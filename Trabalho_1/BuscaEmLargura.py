@@ -20,12 +20,13 @@ class BELs:
 		while self.ouroAtual > 0 and self.g.NOuros() > 0 and ini in aux:
 			self.RecarregarBateria()
 			aux = self.g.ouros
-			ini = self.Mineirar(ini)
+			ini = self.Mineirar(0)
 
-		print("\n\nBEL\n\n")
+		print("\n\nBusca em Largura\n\n")
 		print("Ouro coletado:", self.coletado)
 		print("Casas exploradas:", self.explorados)
 		print("Bateria final:", self.bateriaAtual)
+		print("Sequencia de Acoes:",self.SeqAcoes)
 
 	def Mineirar(self, ini):
 		ret = []
@@ -43,7 +44,7 @@ class BELs:
 						aux -= 1
 				self.GastarBateria(aux)
 				ret += self.AcoesDeRetorno(ret)
-				self.SeqAcoes.append(ret)
+				self.SeqAcoes += ret
 				ret.clear()
 				break
 		return atual

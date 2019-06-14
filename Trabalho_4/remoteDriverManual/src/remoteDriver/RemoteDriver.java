@@ -7,6 +7,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.StringTokenizer;
+
+import net.sourceforge.jFuzzyLogic.FIS;
+import net.sourceforge.jFuzzyLogic.FunctionBlock;
  
 public class RemoteDriver {
 	
@@ -18,7 +21,7 @@ public class RemoteDriver {
         Socket kkSocket = null;
         PrintWriter out = null;
         BufferedReader in = null;
- 
+        FIS fis = FIS.load("remoteDriverManual.fcl", true);
         try {
             kkSocket = new Socket(host, port);
             out = new PrintWriter(kkSocket.getOutputStream(), true);
@@ -37,7 +40,6 @@ public class RemoteDriver {
         double x, y;
         double angle;
         
-        // requisicao da posicao do caminhao
         out.println("r");
         while ((fromServer = in.readLine()) != null) {
         	StringTokenizer st = new StringTokenizer(fromServer);
@@ -48,27 +50,19 @@ public class RemoteDriver {
         	System.out.println("x: " + x + " y: " + y + " angle: " + angle);
         	
         	/////////////////////////////////////////////////////////////////////////////////////
-        	// TODO sua lógica fuzzy vai aqui use os valores de x,y e angle obtidos. x e y estao em [0,1] e angulo [0,360)
-        	
-        	
-        	
-			
-        	double teste = Double.valueOf(stdIn.readLine());
-        	
-        	
-        	
-        	
-        	
-        	double respostaDaSuaLogica = teste; // atribuir um valor entre -1 e 1 para virar o volante pra esquerda ou direita.
-        	
-        	
-        	///////////////////////////////////////////////////////////////////////////////// Acaba sua modificacao aqui
-        	// envio da acao do volante
-        	out.println(respostaDaSuaLogica);
-        	
-            // requisicao da posicao do caminhao        	
-        	out.println("r");	
+
+        	fis.setVariable("X", x);
+			fis.setVariable("ANGLE", angle);
+
+			fis.evaluate();
+
+			double offset = fis.getVariable("STEER").defuzzify();
+			System.out.println("STEER value: " + offset);
+			out.println(offset);
+
+			out.println("r");
         }
+    	System.out.println("SKIP");
  
         out.close();
         in.close();

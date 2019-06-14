@@ -1,0 +1,32 @@
+Aluno: Vinícius Schwinden Berkenbrock
+
+1- Sabendo que F = sim qual a % de G = não
+Obtemos o valor diretamente da tabela onde F=sim e G=não de 80% ou 0,8
+
+2- Pegamos o valor de C na tabela, onde achamos 5% e relacionamos com o da tabela G
+P(F ^ G) * P(F ^ !C ^ Sf ^ I>)
+0,2 * 0,05 = 0,01 ou 1%
+
+3- Pegamos o valor de F e multiplicamos pelo valor da tabela de G
+P(F)*P(G | F) + P(!F)*P(G | !F)
+0,001*0,2 + 0,999*0,01 = 0,01019
+
+4- Pegamos o valor da tabela de C e multiplicamos o valor de P(C) com seus dados relativos
+P(C) = 	(P(F)*P(Sf)*P(I<) + 	P(F)*P(Sf)*P(I><) + 	P(F)*P(Sf)*P(I>)
+	P(F)*P(Sm)*P(I<) + 	P(F)*P(Sm)*P(I><) + 	P(F)*P(Sm)*P(I>))*0,95
+	P(!F)*P(Sf)*P(I<)*0,75 + P(!F)*P(Sf)*P(I><)*0,75 + P(!F)*P(Sf)*P(I>)*0,6
+	P(!F)*P(Sm)*P(I<)*0,8 + P(!F)*P(Sm)*P(I><)*0,75 + P(!F)*P(Sm)*P(I>)*0,5
+
+P(C) = 	0,001*0,95*0,5*1 + 
+	0,999*0,25*0,5*(0,8 + 0,75) + 
+	0,999*0,40*0,5*(0,75 + 0,75) +
+	0,999*0,35*0,5*(0,5 + 0,6)=
+0,68603875? ou ~69%
+
+5- Pegamos o valor na resposta 3: 0,01019 e multiplicamos pelo obtido na resp 4: 0,68603875
+P(G ^ C) = 0,0069907348625?
+
+6- 	Pegamos o valor de P(C)
+	Pegamos o valor de P(!G^F) 0,8
+	Multiplicamos um pelo outro e pelo P(F)
+	0,000548831 ou ~0,05%
